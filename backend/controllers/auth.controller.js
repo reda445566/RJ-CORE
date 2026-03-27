@@ -1,5 +1,6 @@
 import usermodel from "../models/user.model"
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 export const signup = async (req,res)=>{
     try{
         const {name,email,password} = req.body
@@ -24,11 +25,18 @@ const user = await usermodel.create({
       password: hashedPassword,
 
 })
+ // إنشاء توكن JWT
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      token
     });
 // errorhandling
 }catch (error) {
@@ -36,3 +44,7 @@ const user = await usermodel.create({
     res.status(500).json({ message: "Server error" });
   }
 }
+
+
+
+

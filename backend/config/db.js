@@ -9,9 +9,10 @@ import mongoose from "mongoose";
     }catch(err){
         console.log(err)
    console.error("Error connecting to MongoDB:", err);
-    process.exit(1); // يخرج من السيرفر لو فيه مشكلة
+    process.exit(1); 
     
 
     }
 }
+
 

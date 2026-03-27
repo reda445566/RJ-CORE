@@ -1,18 +1,20 @@
 import usermodel from "../models/user.model"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-export const signup = async (req,res)=>{
-    try{
+import asyncHandler from "express-async-handler";
+export const signup =asyncHandler(async (req,res)=>{
+    
         const {name,email,password} = req.body
       // validate
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
+      res.status(400);
+  throw new Error("All fields are required");
     }
     // هتاكد انه مش موجود في الداتا 
-
     const exsistinguser = await usermodel.findOne({email})
     if(exsistinguser){
-     return res.status(400).json({ message: "User already exists" });
+     res.status(400);
+  throw new Error("User already exists");;
 
     }
     // تشفير الباسورد 
@@ -38,15 +40,7 @@ const user = await usermodel.create({
       email: user.email,
       token
     });
-// errorhandling
-}catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-}
-
-
-
-
+})
+  
 
 

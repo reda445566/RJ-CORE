@@ -6,9 +6,6 @@ const router = express.router;
 //
 router.post("/api/signup",signup)
 
-
-
-
 //
 router.use(errorHandler);
 

@@ -1,4 +1,4 @@
-import usermodel from "../models/user.model"
+import usermodel from "../models/user.model.js"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
@@ -42,3 +42,13 @@ const user = await usermodel.create({
     });
 })
   
+export const login = (req,res)=>{
+
+
+}
+
+
+
+
+
+

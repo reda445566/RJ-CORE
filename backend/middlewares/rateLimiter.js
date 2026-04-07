@@ -6,8 +6,8 @@ function fibonacci(n){
     let  a = 1, b = 1;
     for(let i= 2; i < n; i++){
         let temb = a+b;
-        let a = b
-        let b = temp;
+        a = b;
+        b = temp;
     }
     return b;
 }
@@ -36,4 +36,5 @@ export const fibonaccilimter = ()=>{
     }
 
 }
+
 

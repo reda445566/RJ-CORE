@@ -32,4 +32,3 @@ export const updateme = asyncHandler(async(req,res)=>{
   });
 
 })
-

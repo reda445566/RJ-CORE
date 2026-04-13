@@ -32,9 +32,6 @@ const user = await usermodel.create({
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-
-    
-      
     res.status(201).json({
       status:"success",
       message:"lol",
@@ -86,9 +83,6 @@ res.status(404);
     message: "Account deleted successfully",
   });
 })
-
-
-
 
 
 

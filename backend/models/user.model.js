@@ -7,6 +7,7 @@ export const ROLES = {
   ADMIN: "admin",
 };
 
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -48,4 +49,6 @@ const userSchema = new mongoose.Schema(
 
 
 export default mongoose.model("User", userSchema);
+
+
 

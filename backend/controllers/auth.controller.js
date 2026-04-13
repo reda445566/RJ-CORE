@@ -13,8 +13,7 @@ export const signup =asyncHandler(async (req,res)=>{
     // exsistinguser
     const exsistinguser = await usermodel.findOne({email})
     if(exsistinguser){
-     res.status(400);
-  throw new Error("User already exists");;
+     res.status(400).json({status:"fail", message:"lol", data:{}})
 
     }
     // password hashing
@@ -34,11 +33,12 @@ const user = await usermodel.create({
       { expiresIn: "7d" }
     );
 
+    
+      
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token
+      status:"success",
+      message:"lol",
+      data:{ _id: user._id, name: user.name, email: user.email,token}
     });
 })
 //
@@ -72,9 +72,20 @@ export const login = asyncHandler(async (req, res) => {
   });
 });
 
+// delete account
 
+ export const deleteAcc = asyncHandler(async(req,res)=>{
+  const {id} = req.params
 
-
+ const acc = await usermodel.findByIdAndDelete(id);
+ if(!acc){
+res.status(404);
+    throw new Error("User not found");
+ } 
+  res.status(200).json({
+    message: "Account deleted successfully",
+  });
+})
 
 
 

@@ -7,6 +7,7 @@ export const signupValidator = [
     .notEmpty().withMessage("Name is required")
     .isLength({ min: 3, max: 50 }).withMessage("Name must be between 3 and 50 characters"),
 
+
   body("email")
     .notEmpty().withMessage("Email is required")
     .isEmail().withMessage("Please provide a valid email")
@@ -20,6 +21,7 @@ export const signupValidator = [
     .optional()
     .isIn(Object.values(ROLES)).withMessage(`Role must be one of: ${Object.values(ROLES).join(", ")}`)
 ];
+
 
 
 

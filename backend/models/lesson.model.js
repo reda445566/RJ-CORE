@@ -8,3 +8,6 @@ const lessonSchema = new mongoose.Schema({
   duration:    { type: Number, default: 0 },
   isFree:      { type: Boolean, default: false },
 }, { timestamps: true });
+
+
+

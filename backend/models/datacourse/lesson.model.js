@@ -9,5 +9,3 @@ const lessonSchema = new mongoose.Schema({
   isFree:      { type: Boolean, default: false },
 }, { timestamps: true });
 
-
-

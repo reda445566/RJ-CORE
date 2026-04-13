@@ -16,3 +16,6 @@ const quizSchema = new mongoose.Schema({
   totalPoints:  { type: Number, default: 0 },
 }, { timestamps: true });
 
+
+
+

@@ -12,15 +12,9 @@ router.post("/api/signup",signup)
 router.post("/api/login",limiter,fibonaccilimter(),login)
 router.delete("/api/delete",protect,deleteAcc)
 
-
 //
 router.use(errorHandler);
 export default router;
-
-
-
-
-
 
 
 

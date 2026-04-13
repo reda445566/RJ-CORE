@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 export const signup =asyncHandler(async (req,res)=>{
-
      const {name,email,password} = req.body
       // validate
     if (!name || !email || !password) {
@@ -13,7 +12,7 @@ export const signup =asyncHandler(async (req,res)=>{
     // exsistinguser
     const exsistinguser = await usermodel.findOne({email})
     if(exsistinguser){
-     res.status(400).json({status:"fail", message:"lol", data:{}})
+     res.status(400).json({status:"fail", message:"user in web", data:{}})
 
     }
     // password hashing
@@ -26,6 +25,7 @@ const user = await usermodel.create({
       password: hashedPassword,
 
 })
+
    //token generate
     const token = jwt.sign(
       { userId: user._id, email: user.email },
@@ -83,8 +83,5 @@ res.status(404);
     message: "Account deleted successfully",
   });
 })
-
-
-
 
 

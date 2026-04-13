@@ -9,6 +9,7 @@ export const getme = asyncHandler(async(req,res)=>{
   if (!user) {
     res.status(404).json({message:"user not found"})
   }
+  
    res.status(200).json({
       success: true,
       data: user,
@@ -32,3 +33,8 @@ export const updateme = asyncHandler(async(req,res)=>{
   });
 
 })
+
+
+
+
+

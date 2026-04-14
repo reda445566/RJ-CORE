@@ -78,11 +78,3 @@ export const deleteAcc = asyncHandler(async (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-

@@ -1,0 +1,38 @@
+import courseModel from "../models/datacourse/course.model";
+import enrollmentModel from "../models/datacourse/enrollment.model";
+import lessonModel from "../models/datacourse/lesson.model";
+import quizModel from "../models/datacourse/quiz.model";
+import expressAsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler"
+
+// --- Courses ---
+export const createcourse = asyncHandler(async(req,res)=>{
+    const cousre = await courseModel.create({...req.body, instructor: req.user._id })
+      res.status(201).json({ success: true, data: course });
+
+})
+
+// get courses
+ export const getallcourses = asyncHandler(async(req,res)=>{
+
+      const { category, level, page = 1, limit = 10 } = req.query;
+       const filter = { isPublished: true };
+    if (category) filter.category = category;
+    if (level) filter.level = level;
+    const courses = await Course.find(filter)
+      .populate('instructor', 'name avatar')
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+      if(!courses){
+        res.status(400).json({message:"page is empty"})
+
+      }
+ const total = await Course.countDocuments(filter);
+    res.json({ success: true, data: courses, total, page: Number(page) });
+ })
+
+
+
+
+

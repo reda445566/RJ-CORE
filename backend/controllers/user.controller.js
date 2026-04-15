@@ -13,7 +13,6 @@ export const getme = asyncHandler(async (req, res) => {
   });
 });
 
-
 // updateprofile
 export const updateme = asyncHandler(async (req, res) => {
   const user = await userModel
@@ -31,15 +30,5 @@ export const updateme = asyncHandler(async (req, res) => {
     data: user,
   });
 });
-
-
-
-
-
-
-
-
-
-
 
 

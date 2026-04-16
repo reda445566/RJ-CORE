@@ -12,6 +12,7 @@ export const createcourse = asyncHandler(async(req,res)=>{
 
 })
 
+
 // get courses
  export const getallcourses = asyncHandler(async(req,res)=>{
 
@@ -31,6 +32,28 @@ export const createcourse = asyncHandler(async(req,res)=>{
  const total = await Course.countDocuments(filter);
     res.json({ success: true, data: courses, total, page: Number(page) });
  })
+
+ // get course by id
+
+ const getcourseid = asyncHandler(async(req,res)=>{
+
+  const course = await Course.findById(req.params.id)
+  .populate('instructor', 'name avatar bio');
+
+if(!course){
+  throw new AppError("Course not found", 404);
+}
+const lessons = await Lesson.find({ course: course._id })
+  .sort('order')
+  .select('-body');
+   res.json({ success: true, data: { ...course.toObject(), lessons } });
+
+ })
+
+ //update course 
+
+
+ 
 
 
 

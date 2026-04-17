@@ -12,7 +12,6 @@ export const createcourse = asyncHandler(async(req,res)=>{
 
 })
 
-
 // get courses
  export const getallcourses = asyncHandler(async(req,res)=>{
 
@@ -52,8 +51,28 @@ const lessons = await Lesson.find({ course: course._id })
 
  //update course 
 
+export const updatecourse = asyncHandler(async(req,res)=>{
 
- 
+ const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ message: 'Course not found' });
+    if (course.instructor.toString() !== req.user._id.toString())
+      return res.status(403).json({ message: 'Not authorized' });
+
+    const updated = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json({ success: true, data: updated });
+
+})
+
+export const deletecourse = asyncHandler(async(req,res)=>{
+ const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ message: 'Course not found' });
+    if (course.instructor.toString() !== req.user._id.toString())
+      return res.status(403).json({ message: 'Not authorized' });
+
+    await course.deleteOne();
+    res.json({ success: true, message: 'Course deleted' });
+
+})
 
 
 

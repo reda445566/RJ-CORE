@@ -74,7 +74,3 @@ export const deletecourse = asyncHandler(async(req,res)=>{
 
 })
 
-
-
-
-

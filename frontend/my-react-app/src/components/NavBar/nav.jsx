@@ -4,7 +4,7 @@ import "./nav.css";
 export default function NavBar() {
   return (
     <div className="navbar">
-      <h2>RJ App</h2>
+      <h2>RJ&CORE</h2>
 
       <div>
         <Link to="/login">Login</Link>
@@ -13,4 +13,5 @@ export default function NavBar() {
     </div>
   );
 }
+
 

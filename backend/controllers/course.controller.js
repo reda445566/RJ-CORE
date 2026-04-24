@@ -11,7 +11,6 @@ export const createcourse = asyncHandler(async(req,res)=>{
       res.status(201).json({ success: true, data: course });
 
 })
-
 // get courses
  export const getallcourses = asyncHandler(async(req,res)=>{
 
@@ -73,4 +72,6 @@ export const deletecourse = asyncHandler(async(req,res)=>{
     res.json({ success: true, message: 'Course deleted' });
 
 })
+
+
 

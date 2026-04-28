@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login    from "./pages/Login";
+import Login from "./pages/login";
 import Register from "./pages/Register";
 
 // ── Auth layout — the dark split-screen shell ──────────────────────────
@@ -173,4 +173,17 @@ export default function App() {
     </Routes>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

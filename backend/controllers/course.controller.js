@@ -9,8 +9,8 @@ import asyncHandler from "express-async-handler"
 export const createcourse = asyncHandler(async(req,res)=>{
     const cousre = await courseModel.create({...req.body, instructor: req.user._id })
       res.status(201).json({ success: true, data: course });
-
 })
+
 // get courses
  export const getallcourses = asyncHandler(async(req,res)=>{
 
@@ -32,12 +32,9 @@ export const createcourse = asyncHandler(async(req,res)=>{
  })
 
  // get course by id
-
  const getcourseid = asyncHandler(async(req,res)=>{
-
   const course = await Course.findById(req.params.id)
   .populate('instructor', 'name avatar bio');
-
 if(!course){
   throw new AppError("Course not found", 404);
 }
@@ -47,9 +44,7 @@ const lessons = await Lesson.find({ course: course._id })
    res.json({ success: true, data: { ...course.toObject(), lessons } });
 
  })
-
  //update course 
-
 export const updatecourse = asyncHandler(async(req,res)=>{
 
  const course = await Course.findById(req.params.id);
@@ -72,6 +67,3 @@ export const deletecourse = asyncHandler(async(req,res)=>{
     res.json({ success: true, message: 'Course deleted' });
 
 })
-
-
-

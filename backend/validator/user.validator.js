@@ -28,4 +28,3 @@ export const signupValidator = [
     .withMessage(`Role must be one of: ${Object.values(ROLES).join(", ")}`),
 ];
 
-

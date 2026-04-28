@@ -19,6 +19,7 @@ export default function Login() {
     validate
   );
 
+
   const onSubmit = async (data) => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
@@ -109,8 +110,6 @@ const styles = {
   },
   link: { color: "#7B61FF", textDecoration: "none", fontWeight: 500 },
 };
-
-
 
 
 

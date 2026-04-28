@@ -67,3 +67,37 @@ export const deletecourse = asyncHandler(async(req,res)=>{
     res.json({ success: true, message: 'Course deleted' });
 
 })
+
+
+// lessons&addlesson
+export const createLesson = asyncHandler(async (req, res) => {
+  const course = await courseModel.findById(req.params.courseId);
+  if (!course) {
+    return res.status(404).json({ message: "Course not found" });
+  }
+  if (course.instructor.toString() !== req.user._id.toString()) {
+    return res.status(403).json({ message: "Not authorized" });
+  }
+  const lesson = await lessonModel.create({
+    ...req.body,
+    course: course._id
+  });
+  res.status(201).json({
+    success: true,
+    data: lesson
+  });
+});
+
+// getlesson 
+
+export const getLessons = asyncHandler(async (req, res) => {
+  const lessons = await Lesson
+    .find({ course: req.params.id })
+    .sort("order");
+
+  res.status(200).json({
+    success: true,
+    data: lessons
+  });
+});
+

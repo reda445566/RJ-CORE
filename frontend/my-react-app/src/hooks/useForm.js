@@ -12,6 +12,7 @@ export default function useForm(initialValues, validate) {
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
   };
 
+
   const handleSubmit = (onSubmit) => async (e) => {
     e.preventDefault();
     const validationErrors = validate ? validate(values) : {};
@@ -36,6 +37,3 @@ export default function useForm(initialValues, validate) {
 
   return { values, errors, loading, handleChange, handleSubmit, reset };
 }
-
-
-

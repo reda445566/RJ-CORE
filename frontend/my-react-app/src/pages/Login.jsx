@@ -110,7 +110,3 @@ const styles = {
   },
   link: { color: "#7B61FF", textDecoration: "none", fontWeight: 500 },
 };
-
-
-
-

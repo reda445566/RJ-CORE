@@ -25,7 +25,6 @@ export const createcourse = asyncHandler(async(req,res)=>{
       .limit(Number(limit));
       if(!courses){
         res.status(400).json({message:"page is empty"})
-
       }
  const total = await Course.countDocuments(filter);
     res.json({ success: true, data: courses, total, page: Number(page) });
@@ -68,7 +67,6 @@ export const deletecourse = asyncHandler(async(req,res)=>{
 
 })
 
-
 // lessons&addlesson
 export const createLesson = asyncHandler(async (req, res) => {
   const course = await courseModel.findById(req.params.courseId);
@@ -87,9 +85,7 @@ export const createLesson = asyncHandler(async (req, res) => {
     data: lesson
   });
 });
-
 // getlesson 
-
 export const getLessons = asyncHandler(async (req, res) => {
   const lessons = await Lesson
     .find({ course: req.params.id })
@@ -100,4 +96,39 @@ export const getLessons = asyncHandler(async (req, res) => {
     data: lessons
   });
 });
+//enrollment
+export const enrollCourse = asyncHandler(async (req, res) => {
+  const existing = await Enrollment.findOne({
+    user: req.user._id,
+    course: req.params.id
+  });
+  if (existing) {
+    return res.status(400).json({ message: "Already enrolled" });
+  }
+  const enrollment = await Enrollment.create({
+    user: req.user._id,
+    course: req.params.id
+  });
+  res.status(201).json({
+    success: true,
+    data: enrollment
+  });
+});
+// getcourseforuser
+export const getMyCourses = asyncHandler(async (req, res) => {
+  const enrollments = await Enrollment.find({ user: req.user._id })
+    .populate({
+      path: "course",
+      populate: {
+        path: "instructor",
+        select: "name"
+      }
+    });
+  res.status(200).json({
+    success: true,
+    data: enrollments
+  });
+
+});
+
 

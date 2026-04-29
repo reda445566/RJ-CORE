@@ -16,8 +16,9 @@ app.use(cors());
 connectDB();
 
 // use routes
+app.use(authrouter);
 app.use(errorHandler);
-app.use(authrouter)
+
 //
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

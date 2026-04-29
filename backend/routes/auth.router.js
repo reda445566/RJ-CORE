@@ -8,13 +8,13 @@ import { protect } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
 //
-router.post("/api/signup",signup)
-router.post("/api/login",limiter,fibonaccilimter(),login)
-router.delete("/api/delete",protect,deleteAcc)
-
+router.post("/signup",signup)
+router.post("/login",limiter,fibonaccilimter(),login)
+router.delete("/delete",protect,deleteAcc)
 //
-router.use(errorHandler);
+// router.use(errorHandler);
 export default router;
+
 
 
 

@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/Register";
 
-// ── Auth layout — the dark split-screen shell ──────────────────────────
+// ── Auth layout — the dark split-screen shell 
 function AuthLayout({ children }) {
   return (
     <>
@@ -173,6 +173,9 @@ export default function App() {
     </Routes>
   );
 }
+
+
+
 
 
 

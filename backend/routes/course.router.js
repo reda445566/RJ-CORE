@@ -4,8 +4,6 @@ import authMiddleware from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-
-
 // create course
 router.post("/", authMiddleware, courseController.createcourse);
 
@@ -20,8 +18,6 @@ router.put("/:id", authMiddleware, courseController.updatecourse);
 
 // delete course
 router.delete("/:id", authMiddleware, courseController.deletecourse);
-
-
 
 // add lesson to course
 router.post(
@@ -49,3 +45,5 @@ router.get(
 );
 
 export default router;
+
+

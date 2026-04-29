@@ -13,8 +13,3 @@ router.put("/me", protect, updateme);
 export default router;
 
 
-
-
-
-
-

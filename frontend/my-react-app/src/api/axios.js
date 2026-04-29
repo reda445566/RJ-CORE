@@ -5,6 +5,7 @@ const api = axios.create({
   withCredentials: true // لو هتستخدم cookies
 });
 
+
 //add token automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
@@ -17,3 +18,4 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+

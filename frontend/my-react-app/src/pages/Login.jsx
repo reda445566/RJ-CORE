@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import useForm from "../hooks/useForm";
-import api from "../api/axios"; //  
+import { loginUser } from "../api/auth.api.js"; // ✅
+
 const validate = ({ email, password }) => {
   const e = {};
   if (!email) e.email = "Email is required";
@@ -24,7 +25,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await api.post("/auth/login", data);
+      const res = await loginUser(data); // ✅
 
       localStorage.setItem("token", res.data.token);
 
@@ -138,3 +139,4 @@ const styles = {
   },
   link: { color: "#7B61FF", textDecoration: "none", fontWeight: 500 },
 };
+

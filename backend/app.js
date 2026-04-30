@@ -10,13 +10,17 @@ const app = express();
 //
 dotenv.config();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: /^http:\/\/localhost:\d+$/,  // ← يقبل أي localhost
+  credentials: true
+}));
+
 
 // db
 connectDB();
 
 // use routes
-app.use(authrouter);
+app.use("/api", authrouter);
 app.use(errorHandler);
 
 //
@@ -24,10 +28,6 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`server is running on ${port}`);
 });
-
-
-
-
 
 
 

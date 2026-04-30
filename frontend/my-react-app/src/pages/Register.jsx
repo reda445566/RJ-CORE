@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import useForm from "../hooks/useForm";
-import api from "../api/axios"; // 👈 axios instance
+import { registerUser } from "../api/auth.api.js";
 
 const validate = ({ name, email, password, confirmPassword }) => {
   const e = {};
@@ -36,11 +36,7 @@ export default function Register() {
 
   const onSubmit = async ({ name, email, password }) => {
     try {
-      const res = await api.post("/auth/signup", {
-        name,
-        email,
-        password,
-      });
+      const res = await registerUser({ name, email, password }); // ✅
 
       localStorage.setItem("token", res.data.token);
 

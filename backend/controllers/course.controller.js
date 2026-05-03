@@ -129,12 +129,10 @@ export const enrollCourse = asyncHandler(async (req, res) => {
   if (existing) {
     return res.status(400).json({ message: "Already enrolled" });
   }
-
   const enrollment = await enrollmentModel.create({
     user: req.user._id,
     course: req.params.id,
   });
-
   res.status(201).json({
     success: true,
     data: enrollment,
@@ -157,5 +155,4 @@ export const getMyCourses = asyncHandler(async (req, res) => {
     data: enrollments,
   });
 });
-
 

@@ -9,7 +9,7 @@ const validate = ({ name, email, password, confirmPassword }) => {
 
   if (!name || name.trim().length < 2)
     e.name = "Full name is required";
-
+  
   if (!email)
     e.email = "Email is required";
   else if (!/\S+@\S+\.\S+/.test(email))
@@ -159,3 +159,5 @@ const styles = {
   },
   link: { color: "#7B61FF", textDecoration: "none", fontWeight: 500 },
 };
+
+

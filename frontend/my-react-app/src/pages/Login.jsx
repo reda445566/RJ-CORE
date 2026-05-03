@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import useForm from "../hooks/useForm";
-import { loginUser } from "../api/auth.api.js"; // ✅
+import { loginUser } from "../api/auth.api.js"; // 
 
 const validate = ({ email, password }) => {
   const e = {};

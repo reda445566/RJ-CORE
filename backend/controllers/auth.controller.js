@@ -50,12 +50,12 @@ export const login = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-  // generate token
-  const token = jwt.sign(
-    { userId: user._id, email: user.email },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" },
-  );
+  // // generate token
+  // const token = jwt.sign(
+  //   { userId: user._id, email: user.email },
+  //   process.env.JWT_SECRET,
+  //   { expiresIn: "7d" },
+  // );
   res.status(200).json({
     _id: user._id,
     name: user.name,
@@ -76,7 +76,5 @@ export const deleteAcc = asyncHandler(async (req, res) => {
     message: "Account deleted successfully",
   });
 });
-
-
 
 

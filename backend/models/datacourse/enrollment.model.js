@@ -10,4 +10,3 @@ enrollmentSchema.index({ user: 1, course: 1 }, { unique: true }); // مينفع�
 
 module.exports = mongoose.model('enrollment', enrollmentSchema);
 
-

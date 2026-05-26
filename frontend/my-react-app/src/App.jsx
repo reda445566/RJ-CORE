@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 // ── Auth layout — the dark split-screen shell 
 function AuthLayout({ children }) {
@@ -170,6 +171,8 @@ export default function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login"    element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
+      <Route path="/dashboard" element={<AuthLayout><Dashboard /></AuthLayout>} />
+      
     </Routes>
   );
 }

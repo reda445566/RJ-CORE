@@ -16,6 +16,3 @@ router.delete("/delete",protect,deleteAcc)
 export default router;
 
 
-
-
-

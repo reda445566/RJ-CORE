@@ -13,7 +13,8 @@ export const signup = asyncHandler(async (req, res) => {
   // exsistinguser
   const exsistinguser = await usermodel.findOne({ email });
   if (exsistinguser) {
-    res.status(400).json({ status: "fail", message: "user in web", data: {} });
+    res.status(400).json({ status: "fail", message: "user already exists", data: {} });
+    return;
   }
   // password hashing
   const hashedPassword = await bcrypt.hash(password, await bcrypt.genSalt(10));
@@ -33,7 +34,7 @@ export const signup = asyncHandler(async (req, res) => {
   );
   res.status(201).json({
     status: "success",
-    message: "lol",
+    message: "User created successfully",
     data: { _id: user._id, name: user.name, email: user.email, token },
   });
 });
@@ -50,12 +51,12 @@ export const login = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-  // // generate token
-  // const token = jwt.sign(
-  //   { userId: user._id, email: user.email },
-  //   process.env.JWT_SECRET,
-  //   { expiresIn: "7d" },
-  // );
+  // generate token
+  const token = jwt.sign(
+    { userId: user._id, email: user.email },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" },
+  );
   res.status(200).json({
     _id: user._id,
     name: user.name,

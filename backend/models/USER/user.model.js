@@ -7,14 +7,15 @@ export const ROLES = {
   ADMIN: "admin",
 };
 
+
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: [true, "Name is required"],
-      trim: true,
-      minlength: [3, "Name must be at least 3 characters"],
-      maxlength: [50, "Name must be at most 50 characters"],
+      // trim: true,
+      // minlength: [3, "Name must be at least 3 characters"],
+      // maxlength: [50, "Name must be at most 50 characters"],
     },
     email: {
       type: String,
@@ -47,4 +48,6 @@ const userSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("User", userSchema);
+
+
 

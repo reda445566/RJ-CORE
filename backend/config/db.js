@@ -1,26 +1,25 @@
-import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
- export const connectDB  = async (req,res)=>{
+dotenv.config();
 
-    try{
-      await  mongoose.connect(process.env.DB_URL)
-      console.log("MongoDB connected successfully");
-    }catch(err){
-        console.log(err)
-   console.error("Error connecting to MongoDB:", err);
-    process.exit(1); 
-    
+export const connectDB = async () => {
+  const uri = process.env.DB_URL || process.env.MONGO_URI;
 
-    }
-}
+  if (!uri) {
+    console.error(
+      "MongoDB connection string is missing. Set DB_URL or MONGO_URI in your environment."
+    );
+    process.exit(1);
+  }
 
-//
-// function number(){
+  try {
+    await mongoose.connect(uri);
+    console.log("MongoDB connected successfully");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1);
+  }
+};
 
-//   const numbers = [1 , 2,3,4,5,6 ,7 , 8,9 ,10]
-// for(let i = 0 ; i <numbers.length; i++){
 
-//   return i+1;
-// }
-// }

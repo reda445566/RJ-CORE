@@ -37,6 +37,8 @@ router.get(
   authMiddleware,
   courseController.getMyCourses
 );
+
+
 export default router;
 
 

@@ -57,40 +57,71 @@ export const getRoomById = asyncHandler(async (req, res) => {
   });
 });
 
-// الانضمام إلى Room
-export const joinRoom = asyncHandler(async (req, res) => {
+// الهوست هيشوف الطلب 
+export const getPendingRequests = asyncHandler(async (req, res) => {
   const session = await StudySession.findOne({
     roomId: req.params.roomId,
-  });
+  }).populate("pendingRequests", "name avatar");
 
   if (!session) {
     res.status(404);
-    throw new Error('Room not found');
+    throw new Error("Room not found");
   }
 
-  if (session.status === 'ended') {
-    res.status(400);
-    throw new Error('Room already ended');
+  if (session.host.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("Only the host can view pending requests");
   }
 
-  if (session.participants.length >= session.maxMembers) {
-    res.status(400);
-    throw new Error('Room is full');
+  res.json({
+    success: true,
+    data: session.pendingRequests,
+  });
+});
+// قبول الانضمام 
+export const approveRequest = asyncHandler(async (req, res) => {
+  const { roomId, userId } = req.params;
+
+  const session = await StudySession.findOne({ roomId });
+
+  if (!session) {
+    res.status(404);
+    throw new Error("Room not found");
   }
 
-  const alreadyJoined = session.participants.some(
-    (p) => p.toString() === req.user._id.toString()
+  // التأكد إن اللي بيوافق هو الـ Host
+  if (session.host.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("Only the host can approve requests");
+  }
+
+  // التأكد إن المستخدم بعت طلب
+  const requestExists = session.pendingRequests.some(
+    (id) => id.toString() === userId
   );
 
-  if (alreadyJoined) {
-    res.status(400);
-    throw new Error('Already in room');
+  if (!requestExists) {
+    res.status(404);
+    throw new Error("Request not found");
   }
 
-  session.participants.push(req.user._id);
+  // التأكد إن الروم مش مليانة
+  if (session.participants.length >= session.maxMembers) {
+    res.status(400);
+    throw new Error("Room is full");
+  }
 
-  if (session.status === 'waiting') {
-    session.status = 'active';
+  // حذفه من Pending
+  session.pendingRequests = session.pendingRequests.filter(
+    (id) => id.toString() !== userId
+  );
+
+  // إضافته للمشاركين
+  session.participants.push(userId);
+
+  // لو الروم كانت Waiting تبدأ
+  if (session.status === "waiting") {
+    session.status = "active";
     session.startedAt = new Date();
   }
 
@@ -98,11 +129,51 @@ export const joinRoom = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
+    message: "User approved successfully",
     data: session,
   });
 });
 
-// إنهاء الـ Session وإضافة النقاط
+// رفض الانضمام 
+export const rejectRequest = asyncHandler(async (req, res) => {
+  const { roomId, userId } = req.params;
+
+  const session = await StudySession.findOne({ roomId });
+
+  if (!session) {
+    res.status(404);
+    throw new Error("Room not found");
+  }
+
+  // التأكد إن اللي بيرفض هو الـ Host
+  if (session.host.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("Only the host can reject requests");
+  }
+
+  // التأكد إن الطلب موجود
+  const requestExists = session.pendingRequests.some(
+    (id) => id.toString() === userId
+  );
+
+  if (!requestExists) {
+    res.status(404);
+    throw new Error("Request not found");
+  }
+
+  // حذفه من الطلبات فقط
+  session.pendingRequests = session.pendingRequests.filter(
+    (id) => id.toString() !== userId
+  );
+
+  await session.save();
+
+  res.json({
+    success: true,
+    message: "Request rejected successfully",
+  });
+});
+
 export const endRoom = asyncHandler(async (req, res) => {
   const session = await StudySession.findOne({
     roomId: req.params.roomId,
@@ -170,6 +241,7 @@ export const leaveRoom = asyncHandler(async (req, res) => {
   session.participants = session.participants.filter(
     (p) => p.toString() !== req.user._id.toString()
   );
+  
 
   if (session.host.toString() === req.user._id.toString()) {
     if (session.participants.length > 0) {
@@ -187,4 +259,6 @@ export const leaveRoom = asyncHandler(async (req, res) => {
     data: session,
   });
 });
+
+
 
